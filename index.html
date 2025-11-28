@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wellness Plan - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-area">
+                <img src="assets/logo.svg" alt="Digital Wellness Plan Logo" class="logo">
+                <a href="index.html" class="site-title">Digital Wellness Plan</a>
+            </div>
+        </div>
+    </header>
 
+    <!-- Navigation -->
+    <nav class="nav">
+        <ul class="nav-list">
+            <li><a href="index.html" class="nav-link active">Dashboard</a></li>
+            <li><a href="surgery.html" class="nav-link">Wellbeing Surgery</a></li>
+            <li><a href="favourites.html" class="nav-link">Favourites</a></li>
+            <li><a href="settings.html" class="nav-link">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <h1>Welcome to Your Dashboard</h1>
+        
+        <!-- Current Date -->
+        <div class="date-display" id="current-date">Loading date...</div>
+
+        <!-- Motivational Message -->
+        <div class="motivational-card">
+            <p class="motivational-message" id="motivational-message">Loading your daily message...</p>
+        </div>
+
+        <!-- Goals Section -->
+        <div class="goals-header">
+            <h2>Your Goals</h2>
+            <span class="goal-limit" id="goal-limit">0/3 goals</span>
+        </div>
+
+        <div class="goals-grid" id="goals-container">
+            <!-- Goals will be loaded here by JavaScript -->
+            <div class="empty-state">
+                <div class="empty-state-icon">🎯</div>
+                <p class="empty-state-message">Loading your goals...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
