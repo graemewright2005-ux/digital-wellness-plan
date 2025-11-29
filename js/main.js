@@ -45,7 +45,7 @@ function displayGoals() {
     
     if (!goalsContainer) return;
     
-    const goalIds = Storage.getGoals();
+    const goalIds = WellbeingStorage.getGoals();
     
     // Update goal limit counter
     if (goalLimit) {
@@ -61,7 +61,7 @@ function displayGoals() {
             <div class="empty-state">
                 <div class="empty-state-icon">🎯</div>
                 <p class="empty-state-message">No goals yet. Browse the Wellbeing Surgery to find symptoms that resonate and add your first goal.</p>
-                <button class="btn btn-primary" data-section="surgery">Browse Wellbeing Surgery</button>
+                <button class="btn btn-primary" onclick="window.location.href='surgery.html'">Browse Wellbeing Surgery</button>
             </div>
         `;
         return;
@@ -94,7 +94,7 @@ function displayGoals() {
 // Remove goal from dashboard
 function removeGoalFromDashboard(cardId) {
     if (confirm('Remove this goal from your dashboard?')) {
-        Storage.removeGoal(cardId);
+        WellbeingStorage.removeGoal(cardId);
         displayGoals();
     }
 }
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayGoals();
     
     // Apply saved settings
-    const settings = Storage.getSettings();
+    const settings = WellbeingStorage.getSettings();
     if (settings.fontSize) {
         document.documentElement.style.setProperty('--font-scale', settings.fontSize);
     }
