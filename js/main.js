@@ -67,44 +67,41 @@ function displayGoals() {
         return;
     }
     
-    // Create flippable goal cards
+    // Create flippable goal cards using EXISTING CSS classes
     goalIds.forEach(goalId => {
         const card = WELLBEING_CARDS.find(c => c.id === goalId);
         if (!card) return;
         
-        // Create card wrapper
+        // Create card wrapper (uses existing .card-wrapper class)
         const cardWrapper = document.createElement('div');
         cardWrapper.className = 'card-wrapper';
         
-        // Create flippable card structure
+        // Create flippable card (uses existing .card class)
         cardWrapper.innerHTML = `
-            <div class="card goal-card-flippable" id="goal-card-${card.id}" onclick="flipGoalCard('${card.id}')">
+            <div class="card" id="goal-card-${card.id}" onclick="flipGoalCard('${card.id}')">
                 <!-- FRONT SIDE -->
                 <div class="card-face card-front">
                     <div class="goal-section-badge">${card.section}</div>
-                    <h3 class="goal-title">
-                        <span style="margin-right: 0.5rem;">${card.icon}</span>
-                        ${card.symptom}
-                    </h3>
+                    <div class="card-icon">${card.icon}</div>
+                    <h3 class="card-title">${card.symptom}</h3>
+                    <p class="card-description">${card.description}</p>
                     <p class="goal-treatment"><strong>Treatment:</strong> ${card.treatment}</p>
-                    <p class="card-hint" style="margin-top: var(--space-md); font-size: 0.875rem; opacity: 0.7;">Click to view full strategies →</p>
+                    <p class="card-hint">Click to view full strategies →</p>
                 </div>
                 
                 <!-- BACK SIDE -->
                 <div class="card-face card-back">
                     <div class="goal-section-badge">${card.section}</div>
-                    <h3 class="card-title" style="color: var(--color-cyan); margin-bottom: var(--space-md);">
-                        <span style="margin-right: 0.5rem;">${card.icon}</span>
-                        ${card.treatment}
-                    </h3>
+                    <div class="card-icon">${card.icon}</div>
+                    <h3 class="card-title" style="color: var(--color-cyan);">${card.treatment}</h3>
                     <ul class="treatment-strategies">
                         ${card.strategies.map(strategy => `<li>${strategy}</li>`).join('')}
                     </ul>
-                    <div class="goal-actions" style="margin-top: var(--space-lg);">
+                    <div class="card-actions">
                         <button class="btn btn-danger btn-small" onclick="event.stopPropagation(); removeGoalFromDashboard('${card.id}')">Remove Goal</button>
                         <button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); viewInSurgery('${card.id}')">View in Surgery</button>
                     </div>
-                    <p class="card-hint" style="margin-top: var(--space-md); font-size: 0.875rem; opacity: 0.7;">← Click to flip back</p>
+                    <p class="card-hint">← Click to flip back</p>
                 </div>
             </div>
         `;
