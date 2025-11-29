@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Test</title>
+    <style>
+        body { 
+            background: #0a0a0a; 
+            color: #f5f5f5; 
+            font-family: sans-serif; 
+            padding: 2rem;
+        }
+        .test { 
+            background: #1e1e1e; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+            border-radius: 8px;
+        }
+        .pass { border-left: 4px solid #40f5fd; }
+        .fail { border-left: 4px solid #fb8230; }
+    </style>
+</head>
+<body>
+    <h1>Digital Wellness Plan - Diagnostic Test</h1>
+    <div id="results"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script>
+        const results = document.getElementById('results');
+        
+        function addTest(name, passed, details) {
+            const div = document.createElement('div');
+            div.className = 'test ' + (passed ? 'pass' : 'fail');
+            div.innerHTML = `
+                <strong>${passed ? '✅' : '❌'} ${name}</strong><br>
+                ${details}
+            `;
+            results.appendChild(div);
+        }
+
+        // Test 1: data.js loaded
+        addTest(
+            'data.js loaded', 
+            typeof MOTIVATIONAL_MESSAGES !== 'undefined',
+            typeof MOTIVATIONAL_MESSAGES !== 'undefined' 
+                ? `Found ${MOTIVATIONAL_MESSAGES.length} messages` 
+                : 'MOTIVATIONAL_MESSAGES not defined'
+        );
+
+        // Test 2: Cards loaded
+        addTest(
+            'Cards loaded', 
+            typeof WELLBEING_CARDS !== 'undefined',
+            typeof WELLBEING_CARDS !== 'undefined' 
+                ? `Found ${WELLBEING_CARDS.length} cards` 
+                : 'WELLBEING_CARDS not defined'
+        );
+
+        // Test 3: Sections loaded
+        addTest(
+            'Sections loaded', 
+            typeof SECTIONS !== 'undefined',
+            typeof SECTIONS !== 'undefined' 
+                ? `Found ${SECTIONS.length} sections` 
+                : 'SECTIONS not defined'
+        );
+
+        // Test 4: Storage loaded
+        addTest(
+            'storage.js loaded', 
+            typeof Storage !== 'undefined',
+            typeof Storage !== 'undefined' 
+                ? 'Storage object available' 
+                : 'Storage object not defined'
+        );
+
+        // Test 5: localStorage available
+        addTest(
+            'localStorage available', 
+            typeof localStorage !== 'undefined',
+            typeof localStorage !== 'undefined' 
+                ? 'Browser supports localStorage' 
+                : 'localStorage not available'
+        );
+
+        // Test 6: Sample message
+        if (typeof MOTIVATIONAL_MESSAGES !== 'undefined' && MOTIVATIONAL_MESSAGES.length > 0) {
+            addTest(
+                'Sample message', 
+                true,
+                `"${MOTIVATIONAL_MESSAGES[0]}"`
+            );
+        }
+
+        // Test 7: Sample card
+        if (typeof WELLBEING_CARDS !== 'undefined' && WELLBEING_CARDS.length > 0) {
+            const card = WELLBEING_CARDS[0];
+            addTest(
+                'Sample card', 
+                true,
+                `${card.icon} ${card.symptom} (${card.section})`
+            );
+        }
+    </script>
+</body>
+</html>
