@@ -67,28 +67,58 @@ function displayGoals() {
         return;
     }
     
-    // Create goal cards
+    // Create flippable goal cards
     goalIds.forEach(goalId => {
         const card = WELLBEING_CARDS.find(c => c.id === goalId);
         if (!card) return;
         
-        const goalCard = document.createElement('div');
-        goalCard.className = 'goal-card';
-        goalCard.innerHTML = `
-            <div class="goal-section-badge">${card.section}</div>
-            <h3 class="goal-title">
-                <span style="margin-right: 0.5rem;">${card.icon}</span>
-                ${card.symptom}
-            </h3>
-            <p class="goal-treatment"><strong>Treatment:</strong> ${card.treatment}</p>
-            <div class="goal-actions">
-                <button class="btn btn-danger btn-small" onclick="removeGoalFromDashboard('${card.id}')">Remove Goal</button>
-                <button class="btn btn-secondary btn-small" onclick="viewInSurgery('${card.id}')">View in Surgery</button>
+        // Create card wrapper
+        const cardWrapper = document.createElement('div');
+        cardWrapper.className = 'card-wrapper';
+        
+        // Create flippable card structure
+        cardWrapper.innerHTML = `
+            <div class="card goal-card-flippable" id="goal-card-${card.id}" onclick="flipGoalCard('${card.id}')">
+                <!-- FRONT SIDE -->
+                <div class="card-face card-front">
+                    <div class="goal-section-badge">${card.section}</div>
+                    <h3 class="goal-title">
+                        <span style="margin-right: 0.5rem;">${card.icon}</span>
+                        ${card.symptom}
+                    </h3>
+                    <p class="goal-treatment"><strong>Treatment:</strong> ${card.treatment}</p>
+                    <p class="card-hint" style="margin-top: var(--space-md); font-size: 0.875rem; opacity: 0.7;">Click to view full strategies →</p>
+                </div>
+                
+                <!-- BACK SIDE -->
+                <div class="card-face card-back">
+                    <div class="goal-section-badge">${card.section}</div>
+                    <h3 class="card-title" style="color: var(--color-cyan); margin-bottom: var(--space-md);">
+                        <span style="margin-right: 0.5rem;">${card.icon}</span>
+                        ${card.treatment}
+                    </h3>
+                    <ul class="treatment-strategies">
+                        ${card.strategies.map(strategy => `<li>${strategy}</li>`).join('')}
+                    </ul>
+                    <div class="goal-actions" style="margin-top: var(--space-lg);">
+                        <button class="btn btn-danger btn-small" onclick="event.stopPropagation(); removeGoalFromDashboard('${card.id}')">Remove Goal</button>
+                        <button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); viewInSurgery('${card.id}')">View in Surgery</button>
+                    </div>
+                    <p class="card-hint" style="margin-top: var(--space-md); font-size: 0.875rem; opacity: 0.7;">← Click to flip back</p>
+                </div>
             </div>
         `;
         
-        goalsContainer.appendChild(goalCard);
+        goalsContainer.appendChild(cardWrapper);
     });
+}
+
+// Flip individual goal card
+function flipGoalCard(cardId) {
+    const cardElement = document.getElementById(`goal-card-${cardId}`);
+    if (cardElement) {
+        cardElement.classList.toggle('flipped');
+    }
 }
 
 // Remove goal from dashboard
