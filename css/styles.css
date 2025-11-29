@@ -1,439 +1,64 @@
-/* ====================
-   DIGITAL WELLNESS PLAN
-   Complete Styles
-   ==================== */
-
-:root {
-    /* Digiwest Colors */
-    --color-magenta: #fb51fd;
-    --color-cyan: #40f5fd;
-    --color-orange: #fb8230;
-    --color-yellow: #fcdb3e;
-    
-    /* Dark Theme */
-    --color-bg-primary: #0a0a0a;
-    --color-bg-secondary: #121212;
-    --color-bg-card: #1e1e1e;
-    
-    /* Text */
-    --color-text-primary: #f5f5f5;
-    --color-text-secondary: #b0b0b0;
-    
-    /* Spacing */
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
-    
-    /* Border Radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    
-    /* User adjustable */
-    --font-scale: 1;
+/* Flippable Goal Cards on Dashboard */
+.goal-card-flippable {
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease-in-out;
+    min-height: 300px; /* Ensures consistent height */
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.goal-card-flippable.flipped {
+    transform: rotateY(180deg);
 }
 
-body {
-    font-family: 'Inter', 'Segoe UI', -apple-system, sans-serif;
-    background: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    line-height: 1.6;
-    font-size: calc(1rem * var(--font-scale));
-}
-
-/* HEADER */
-.header {
-    background: var(--color-bg-secondary);
-    padding: var(--space-md) var(--space-lg);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    position: sticky;
+.goal-card-flippable .card-face {
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     top: 0;
-    z-index: 50;
-}
-
-.header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-}
-
-.logo {
-    width: 40px;
-    height: 40px;
-}
-
-.site-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--color-orange), var(--color-yellow));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-decoration: none;
-}
-
-/* NAVIGATION */
-.nav {
-    background: var(--color-bg-secondary);
-    padding: var(--space-md) var(--space-lg);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.nav-list {
-    list-style: none;
-    display: flex;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.nav-link {
-    display: block;
-    padding: var(--space-sm) var(--space-md);
-    color: var(--color-text-secondary);
-    border-radius: var(--radius-sm);
-    transition: all 0.2s;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.nav-link:hover {
-    color: var(--color-text-primary);
-    background: rgba(255,255,255,0.05);
-}
-
-.nav-link.active {
-    color: white;
-    background: linear-gradient(135deg, var(--color-magenta), var(--color-cyan));
-}
-
-/* MAIN */
-.main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--space-xl) var(--space-lg);
-    min-height: calc(100vh - 200px);
-}
-
-h1, h2, h3 { line-height: 1.2; }
-h1 { font-size: 2.5rem; margin-bottom: var(--space-lg); }
-h2 { font-size: 2rem; margin-bottom: var(--space-md); }
-h3 { font-size: 1.5rem; margin-bottom: var(--space-sm); }
-
-/* DASHBOARD */
-.date-display {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-lg);
-}
-
-.motivational-card {
-    background: var(--color-bg-card);
-    padding: var(--space-xl);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--space-xl);
-    border: 2px solid transparent;
-    border-image: linear-gradient(135deg, var(--color-orange), var(--color-yellow)) 1;
-    box-shadow: 0 0 20px rgba(252, 219, 62, 0.2);
-}
-
-.motivational-message {
-    font-size: 1.125rem;
-    text-align: center;
-    line-height: 1.8;
-}
-
-.goals-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-lg);
-}
-
-.goal-limit {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-}
-
-.goals-grid {
-    display: grid;
-    gap: var(--space-lg);
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.goal-card {
-    background: var(--color-bg-card);
+    left: 0;
     padding: var(--space-lg);
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: all 0.2s;
 }
 
-.goal-card:hover {
-    border-color: var(--color-magenta);
-    transform: translateY(-2px);
+.goal-card-flippable .card-front {
+    z-index: 2;
+    transform: rotateY(0deg);
 }
 
-.goal-section-badge {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    background: rgba(251, 81, 253, 0.2);
-    color: var(--color-magenta);
-    border-radius: var(--radius-sm);
-    font-size: 0.75rem;
+.goal-card-flippable .card-back {
+    transform: rotateY(180deg);
+}
+
+/* Treatment strategies list styling */
+.treatment-strategies {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.treatment-strategies li {
+    padding-left: 1.5rem;
     margin-bottom: var(--space-sm);
+    position: relative;
 }
 
-.goal-title {
-    margin-bottom: var(--space-sm);
+.treatment-strategies li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-cyan);
+    font-weight: bold;
 }
 
-.goal-treatment {
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-md);
-    font-size: 0.875rem;
-}
-
+/* Goal actions buttons */
 .goal-actions {
     display: flex;
     gap: var(--space-sm);
     flex-wrap: wrap;
 }
 
-/* CARDS (Surgery) */
-.filter-tabs {
-    display: flex;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-    margin-bottom: var(--space-xl);
-}
-
-.filter-tab {
-    padding: var(--space-sm) var(--space-md);
-    background: var(--color-bg-card);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-secondary);
-    transition: all 0.2s;
-    cursor: pointer;
-}
-
-.filter-tab:hover {
-    border-color: var(--color-magenta);
-    color: var(--color-text-primary);
-}
-
-.filter-tab.active {
-    background: linear-gradient(135deg, var(--color-magenta), var(--color-cyan));
-    border-color: transparent;
-    color: white;
-}
-
-.cards-grid {
-    display: grid;
-    gap: var(--space-xl);
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-}
-
-.card-wrapper {
-    perspective: 1000px;
-    height: 450px;
-}
-
-.card {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s;
-    cursor: pointer;
-}
-
-.card.flipped {
-    transform: rotateY(180deg);
-}
-
-.card-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    background: var(--color-bg-card);
-    border-radius: var(--radius-md);
-    padding: var(--space-xl);
-    border: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-}
-
-.card-face:hover {
-    border-color: var(--color-magenta);
-}
-
-.card-back {
-    transform: rotateY(180deg);
-}
-
-.card-icon {
-    font-size: 2.5rem;
-    margin-bottom: var(--space-md);
-}
-
-.card-title {
-    margin-bottom: var(--space-md);
-    font-size: 1.25rem;
-}
-
-.card-description {
-    color: var(--color-text-secondary);
-    flex-grow: 1;
-    margin-bottom: var(--space-md);
-    line-height: 1.6;
-}
-
-.card-hint {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.4);
-    text-align: center;
-    font-style: italic;
-    margin-top: auto;
-}
-
-.treatment-strategies {
-    list-style: none;
-    margin-bottom: var(--space-lg);
-    flex-grow: 1;
-}
-
-.treatment-strategies li {
-    padding-left: var(--space-md);
-    margin-bottom: var(--space-sm);
-    position: relative;
-    line-height: 1.5;
-}
-
-.treatment-strategies li::before {
-    content: "→";
-    position: absolute;
-    left: 0;
-    color: var(--color-cyan);
-}
-
-.card-actions {
-    display: flex;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-    margin-top: auto;
-}
-
-/* BUTTONS */
-.btn {
-    display: inline-block;
-    padding: var(--space-sm) var(--space-lg);
-    border-radius: var(--radius-sm);
-    font-weight: 600;
-    transition: all 0.2s;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    font-size: 0.875rem;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--color-orange), var(--color-yellow));
-    color: #000;
-}
-
-.btn-primary:hover {
-    filter: brightness(1.1);
-    transform: scale(1.02);
-}
-
-.btn-secondary {
-    background: transparent;
-    border: 2px solid var(--color-cyan);
-    color: var(--color-cyan);
-}
-
-.btn-secondary:hover {
-    background: rgba(64, 245, 253, 0.1);
-}
-
-.btn-danger {
-    background: transparent;
-    border: 2px solid var(--color-orange);
-    color: var(--color-orange);
-}
-
-.btn-danger:hover {
-    background: rgba(251, 130, 48, 0.1);
-}
-
-.btn-small {
-    padding: 0.25rem 0.75rem;
-    font-size: 0.75rem;
-}
-
-/* EMPTY STATE */
-.empty-state {
-    text-align: center;
-    padding: var(--space-xl);
-    background: var(--color-bg-card);
-    border-radius: var(--radius-md);
-    border: 2px dashed rgba(255,255,255,0.1);
-}
-
-.empty-state-icon {
-    font-size: 3rem;
-    margin-bottom: var(--space-md);
-    opacity: 0.5;
-}
-
-.empty-state-message {
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-lg);
-}
-
-/* UTILITIES */
-.hidden {
-    display: none !important;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-    }
-    
-    .nav-list {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .cards-grid, .goals-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .card-wrapper {
-        height: 500px;
-    }
+.goal-actions .btn {
+    flex: 1;
+    min-width: 120px;
 }
